@@ -38,6 +38,17 @@ class MapView extends Component {
     });
   }
 
+  fitToCoordinates(coordinates) {
+    var bounds = new window.google.maps.LatLngBounds();
+    for (var i = 0; i < coordinates.length; i++) {
+      bounds.extend(
+        new window.google.maps.LatLng(coordinates[i].latitude, coordinates[i].longitude)
+      );
+    }
+
+    this.map.fitBounds(bounds);
+  }
+
   onDragEnd = () => {
     const { onRegionChangeComplete } = this.props;
     if (this.map && onRegionChangeComplete) {
@@ -102,6 +113,8 @@ class MapView extends Component {
 MapView.Marker = Marker;
 MapView.Polyline = Polyline;
 MapView.Callout = Callout;
+
+export { Marker, Polyline, Callout };
 
 const styles = StyleSheet.create({
   container: {
